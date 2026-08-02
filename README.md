@@ -115,8 +115,3 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## Authors
-
-Developed by:
-
-- **Fida Ukwishaka**
