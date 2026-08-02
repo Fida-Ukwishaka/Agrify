@@ -1,5 +1,3 @@
-# Agricultural-Farm-Management-System
-
 # 🌾 Agrify - Agriculture Farm Management System
 
 Agrify is a Spring Boot REST API developed to simplify the management of commercial farms. The system allows farm administrators to manage farms, workers, crops, equipment, fertilizer inventory, harvests, customers, and sales through a secure RESTful API.
