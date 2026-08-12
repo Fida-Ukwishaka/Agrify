@@ -1,74 +1,48 @@
-# Farm Management System Backend
+# 🌾 Agrify - Agriculture Farm Management System
 
-Simple Spring Boot backend using Java, Maven, JDBC and MariaDB. No ORM/JPA/Hibernate.
+Agrify is a Spring Boot REST API for managing farm operations including farms, crops, employees, equipment, fertilizer, inventory, customers, sales, and payments.
+
+## Features
+
+- Farm, crop, employee, equipment, fertilizer and inventory management
+- Customer, sales, and payment management
+- CRUD operations
+- UUID-based IDs
+- User registration and authentication
+- Spring Security with HTTP Basic Authentication
+- Database triggers and stored procedures
+- Global exception handling and validation
+- Swagger/OpenAPI documentation
+
+## Technologies
+
+Java 21 • Spring Boot • Spring Web • Spring JDBC • Spring Security • MariaDB • Maven • Swagger/OpenAPI • Lombok • Jakarta Validation
+
+> The application does not use JPA, Hibernate, or any ORM. SQL is accessed manually using JDBC and the DAO pattern, with DTOs for data transfer.
 
 ## Architecture
 
-Controller -> Service -> DAO -> JdbcTemplate -> MariaDB
-
-DTOs are used for request data. Models represent database rows.
+Controller → Service → DAO → JdbcTemplate → MariaDB
 
 ## Database
 
-1. Open MariaDB/HeidiSQL.
-2. Run `database/farm_management.sql`.
-3. The script keeps the supplied SQL and adds four missing tables required by the supplied sale-item SQL, triggers and procedure:
-   - inventory
-   - sale
-   - payment
-   - inventory_transaction
-4. All IDs are CHAR(36) UUIDs.
+MariaDB is used with manually created SQL tables, foreign keys, UUIDs, triggers, and stored procedures.
 
-## Configuration
+## Security
 
-Open `src/main/resources/application.properties` and change:
-
-`spring.datasource.password=YOUR_MARIADB_PASSWORD`
-
-## Run without installing Maven globally on Windows
-
-Java is required. From the project root run:
-
-`.\mvnw.cmd spring-boot:run`
-
-The included Windows helper downloads Apache Maven into your user folder the first time it is used.
+Users register through the API and authenticate using HTTP Basic Authentication. Passwords are encrypted using BCrypt.
 
 ## Swagger
 
-After startup open:
+After starting the application, open:
 
-http://localhost:8080/swagger-ui.html
+`http://localhost:8080/swagger-ui/index.html`
 
-Use Swagger's Authorize button.
+Swagger is used to authenticate and test the API endpoints.
 
-Development admin:
+## Running
 
-- username: `admin`
-- password: `admin123`
-- role: ADMIN
-
-The admin is created automatically if it does not already exist.
-
-## Authentication
-
-This project uses Spring Security HTTP Basic Authentication with BCrypt passwords. This is intentionally simple and easy to explain.
-
-- `POST /api/auth/register` is public.
-- Other `/api/**` endpoints require authentication.
-- `/api/accounts/**` requires ADMIN.
-
-## Main endpoint pattern
-
-For example:
-
-GET `/api/farm`
-GET `/api/farm/{id}`
-POST `/api/farm`
-PUT `/api/farm/{id}`
-DELETE `/api/farm/{id}`
-
-The same simple pattern is used for the other CRUD resources.
-
-## Sale items
-
-`POST /api/sale-items` calls the supplied `sp_record_sale_item` stored procedure. The database procedure calculates the subtotal and updates the sale total. The supplied triggers also protect inventory and create inventory transactions.
+```bash
+git clone https://github.com/Fida-Ukwishaka/Agrify.git
+cd Agrify
+mvn spring-boot:run
